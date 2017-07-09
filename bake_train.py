@@ -89,11 +89,11 @@ def train(inputPath, outputModelPath, epochNum, batchNum, gpu):
             x_batch = x_train[perm[i:i+batchNum]]
             y_batch = y_train[perm[i:i+batchNum]]
 
-            # optimizer.zero_grads()
+            model.zerograds()
             loss, acc = model.forward(x_batch, y_batch, gpu)
             loss.backward()
 
-            # optimizer.update()
+            optimizer.update()
 
             sumLoss += float(loss.data) * len(y_batch)
             sumAcr += float(acc.data) * len(y_batch)

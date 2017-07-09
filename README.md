@@ -13,10 +13,10 @@ chainerの畳み込みニューラルネットワークを使用してキャラ�
 ## Demo
 
 インプットする画像
-https://raw.github.com/wiki/yukisnow/animeCNN/images/input.png
+![input](https://raw.github.com/wiki/yukisnow/animeCNN/images/input.jpg)
 
 アウトプットされる画像
-https://raw.github.com/wiki/yukisnow/animeCNN/images/output.png
+![input](https://raw.github.com/wiki/yukisnow/animeCNN/images/output.jpg)
 
 ## Requirement
  Python 3.6

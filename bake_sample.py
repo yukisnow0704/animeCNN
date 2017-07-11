@@ -19,7 +19,7 @@ import argparse
 def forward(x_data, gpu):
 
     with chainer.using_config('train', False):
-        if(gpu > 0):
+        if(gpu >= 0):
             x = chainer.Variable(cuda.cupy.array(x_data))
         else:
             x = chainer.Variable(np.array(x_data))
@@ -52,7 +52,6 @@ def recognition(image, faces):
         dst = cv2.resize(dst, (50, 50))
         face_images.append(dst)
     
-    print(face_images)
     face_images = np.array(face_images).astype(np.float32).reshape(len(face_images), 3, 50, 50) /255
 
     return forward(face_images, gpu), image
@@ -63,7 +62,7 @@ def draw_result(image, faces, result):
         result_data = result.data[count]
         classNum = result_data.argmax()
         
-        print(chara_name)
+        print(classNum)
         recognized_class = chara_name[int(classNum)]
         if(recognized_class == 'other'):
             cv2.rectangle(image, (x,y), (x+w, y+h), (255, 140, 0), 3)
@@ -82,7 +81,7 @@ parser.add_argument('--model_path',                 type=str,   default='model/t
 parser.add_argument('--charaName_path',             type=str,   default='charaName.pickle')
 parser.add_argument('--input_path',                 type=str,   default='input')
 parser.add_argument('--output_path',                 type=str,   default='output')
-parser.add_argument('--gpu',                        type=int,   default='-1')
+parser.add_argument('--gpu',                        type=int,   default='0')
 args = parser.parse_args()
 
 f = open(args.model_path, 'rb')

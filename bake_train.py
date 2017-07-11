@@ -44,9 +44,9 @@ def getDataSet(inputPath):
             if imgSrc is None:continue
 
             x_train.append(imgSrc)
-            y_train.append(i-1)
+            y_train.append(i)
     
-        print('success read {}',format(fileList[i]))
+        print('success read ',format(fileList[i]))
 
     f = open('charaName.pickle', 'wb')
     pickle.dump(charaName, f)
@@ -62,7 +62,7 @@ def train(inputPath, outputModelPath, epochNum, batchNum, gpu):
     
     model = clf_bake(outputNum)
 
-    if gpu >= 0:
+    if (gpu >= 0):
         chainer.cuda.get_device_from_id(gpu).use()
         model.to_gpu()
 
@@ -89,7 +89,7 @@ def train(inputPath, outputModelPath, epochNum, batchNum, gpu):
             x_batch = x_train[perm[i:i+batchNum]]
             y_batch = y_train[perm[i:i+batchNum]]
 
-            model.zerograds()
+            model.cleargrads()
             loss, acc = model.forward(x_batch, y_batch, gpu)
             loss.backward()
 
@@ -110,9 +110,9 @@ def train(inputPath, outputModelPath, epochNum, batchNum, gpu):
     f = open(outputModelPath+'/train_latest.pickle', 'wb')
     pickle.dump(model, f)
 
-gpu = -1
+gpu = 0
 epochNum = 50
-batchNum = 50
+batchNum = 20
 inputPath = "resizeImg"
 outputModelPath = 'model'
 train(inputPath, outputModelPath, epochNum, batchNum, gpu)

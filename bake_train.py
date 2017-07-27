@@ -15,6 +15,8 @@ from char_model import clf_bake
 import pickle
 import numpy as np
 
+import argparse
+
 def getDataSet(inputPath):
     x_train = []
     x_test = []
@@ -110,9 +112,13 @@ def train(inputPath, outputModelPath, epochNum, batchNum, gpu):
     f = open(outputModelPath+'/train_latest.pickle', 'wb')
     pickle.dump(model, f)
 
-gpu = 0
-epochNum = 50
-batchNum = 20
-inputPath = "resizeImg"
-outputModelPath = 'model'
-train(inputPath, outputModelPath, epochNum, batchNum, gpu)
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--gpu',                        type=int,   default='0')
+parser.add_argument('--epochNum',                   type=int,   default='50')
+parser.add_argument('--batchNum',                   type=int,   default='20')
+parser.add_argument('--input_path',                 type=str,   default='resizeImg')
+parser.add_argument('--output_model_path',          type=str,   default='model')
+args = parser.parse_args()
+
+train(args.input_path, args.output_model_path, args.epochNum, args.batchNum, args.gpu)

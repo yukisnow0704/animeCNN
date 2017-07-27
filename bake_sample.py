@@ -62,7 +62,6 @@ def draw_result(image, faces, result):
         result_data = result.data[count]
         classNum = result_data.argmax()
         
-        print(classNum)
         recognized_class = chara_name[int(classNum)]
         if(recognized_class == 'other'):
             cv2.rectangle(image, (x,y), (x+w, y+h), (255, 140, 0), 3)
@@ -103,8 +102,6 @@ for fileName in fileList:
     img = cv2.imread(inputPath + '/' + fileName)
     # cv2.imshow("loaded", img)
     faces = detect(img)
-
-    print(fileName)
 
     result, image = recognition(img, faces)
 

@@ -15,7 +15,7 @@ class clf_bake(chainer.Chain):
         super(clf_bake, self).__init__(
             conv1 = L.Convolution2D(3, 16, 2, pad=1),
             conv2 = L.Convolution2D(16, 32, 2, pad=1),
-            l3 = L.Linear(None, 1024),
+            l3 = L.Linear(None, 4096),
             l4 = L.Linear(None, 256),
             l5 = L.Linear(None, outputNum)
         )

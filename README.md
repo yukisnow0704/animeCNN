@@ -25,14 +25,6 @@ chainerの畳み込みニューラルネットワークを使用してキャラ�
 
 1.動画から画像を出力
 
-python3 video_openCV
-
-parser.add_argument('--cascade_path',               type=str,   default='lbpcascade_animeface.xml')
-parser.add_argument('--outputFile',                 type=str,   default='img')
-parser.add_argument('--filetype',                   type=str,   default='mp4')
-parser.add_argument('--video_path',                 type=str,   default='video')
-parser.add_argument('--frameBatch',                 type=int,   default='50')
-
 2.画像を仕分ける
 適当なディレクトリを作成して、そこに各キャラの名前とともにキャラクターの画像を入れていく。
 

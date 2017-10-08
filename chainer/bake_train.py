@@ -92,13 +92,21 @@ def train(inputPath, outputModelPath, epochNum, batchNum, gpu):
             y_batch = y_train[perm[i:i+batchNum]]
 
             model.cleargrads()
+
+            if(gpu >= 0):
+                x_batch = chainer.Variable(chainer.cuda.cupy.array(x_batch))
+                y_batch = chainer.Variable(chainer.cuda.cupy.array(y_batch))
+            else:
+                x_batch = chainer.Variable(np.array(x_batch))
+                y_batch = chainer.Variable(np.array(y_batch))
+
             loss, acc = model.forward(x_batch, y_batch, gpu)
             loss.backward()
 
             optimizer.update()
 
-            sumLoss += float(loss.data) * len(y_batch)
-            sumAcr += float(acc.data) * len(y_batch)
+            # sumLoss += float(loss.data) * len(y_batch)
+            # sumAcr += float(acc.data) * len(y_batch)
             pbar.update(1)
         
         pbar.close()
@@ -106,9 +114,11 @@ def train(inputPath, outputModelPath, epochNum, batchNum, gpu):
 
         epoch += 1
         
-        # f = open(outputModelPath+'/train'+ '_' + str(datetime.datetime.now()) +'.pickle', 'wb')
-        # pickle.dump(model, f)
-    
+        f = open(outputModelPath+'/train'+ '_' + str(epoch) +'.pickle', 'wb')
+        pickle.dump(model.to_cpu(), f)
+        model.to_gpu()
+        
+    model.to_cpu()
     f = open(outputModelPath+'/train_latest.pickle', 'wb')
     pickle.dump(model, f)
 

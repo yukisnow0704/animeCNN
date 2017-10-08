@@ -80,7 +80,7 @@ parser.add_argument('--model_path',                 type=str,   default='model/t
 parser.add_argument('--charaName_path',             type=str,   default='charaName.pickle')
 parser.add_argument('--input_path',                 type=str,   default='input')
 parser.add_argument('--output_path',                 type=str,   default='output')
-parser.add_argument('--gpu',                        type=int,   default='0')
+parser.add_argument('--gpu',                        type=int,   default='-1')
 args = parser.parse_args()
 
 f = open(args.model_path, 'rb')
@@ -92,6 +92,8 @@ chara_name = pickle.load(f)
 inputPath = args.input_path
 outputPath = args.output_path
 gpu = args.gpu
+
+print(gpu)
 
 fileList = os.listdir(inputPath)
 

@@ -1,10 +1,8 @@
-thumb
-thumbOut
-selectList
-resizeImg
-output
-input
-img
-video
-model
+import/thumbOut
+import/selectList
+import/resizeImg
+import/img
+import/video
+chainer/model
+tensorflow/model
 __pycache__

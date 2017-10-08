@@ -3,7 +3,7 @@
 import os
 
 import chainer
-from chainer import optimizers, cuda
+from chainer import optimizers
 import chainer.functions as F
 import chainer.links as L
 import chainer.serializers as S
@@ -27,13 +27,6 @@ class clf_bake(chainer.Chain):
     def forward(self, x_data, y_data, gpu, train=True):
         self.clear()
         with chainer.using_config('train', train):
-            if(gpu >= 0):
-                x_data = chainer.Variable(cuda.cupy.array(x_data))
-                y_data = chainer.Variable(cuda.cupy.array(y_data))
-            else:
-                x_data = chainer.Variable(np.array(x_data))
-                y_data = chainer.Variable(np.array(y_data))
-
             h = F.max_pooling_2d(F.relu(self.conv1(x_data)), ksize = 5, stride = 2, pad = 2)
             h = F.max_pooling_2d(F.relu(self.conv2(h)), ksize = 5, stride = 2, pad = 2)
             h = F.dropout(F.relu(self.l3(h)))
